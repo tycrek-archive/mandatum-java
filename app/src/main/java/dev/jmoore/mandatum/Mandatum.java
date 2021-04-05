@@ -8,7 +8,7 @@ public class Mandatum {
     public static Dotenv DOTENV;
     public static Bot bot;
 
-    public static void main(String[] args) throws LoginException {
+    public static void main(String[] args) throws LoginException, InterruptedException {
         // Load environment variables (including bot token)
         DOTENV = Dotenv.load();
 

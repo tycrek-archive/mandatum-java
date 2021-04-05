@@ -40,22 +40,18 @@ public class Bot {
     }
 
     /**
-     * Builds the {@link EventListener} & {@link JDA}
+     * Builds the {@link EventListener} & {@link JDA}. This method will block.
      *
      * @return The {@link Bot} for chaining
      * @throws LoginException Thrown if authentication with the Discord API fails
+     * @throws InterruptedException Thrown if <code>.build().awaitRead()</code> fails to block the thread
      */
-    public Bot build() throws LoginException {
-        EventListener listener = new EventListener()
-                .register(ReadyEvent.class, new ReadyHandler())
-                .register(GuildMessageReceivedEvent.class, new MessageReceivedHandler())
-                .register(DisconnectEvent.class, new DisconnectHandler());
-
+    public Bot build() throws LoginException, InterruptedException {
         this.jda = JDABuilder
                 .createLight(this.token)
                 .setActivity(Activity.listening("aaaaaaaaaaaa"))
-                .addEventListeners(listener)
-                .build();
+                .addEventListeners(this.buildEventListener())
+                .build().awaitReady();
 
         return this;
     }
@@ -79,5 +75,15 @@ public class Bot {
      */
     public void sendToOwner() {
 
+    }
+
+    /**
+     * @return A new EventListener
+     */
+    private EventListener buildEventListener() {
+        return new EventListener()
+                .register(ReadyEvent.class, new ReadyHandler())
+                .register(GuildMessageReceivedEvent.class, new MessageReceivedHandler())
+                .register(DisconnectEvent.class, new DisconnectHandler());
     }
 }

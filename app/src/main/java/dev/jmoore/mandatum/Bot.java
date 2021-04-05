@@ -19,6 +19,8 @@ public class Bot {
     private CommandManager commandManager;
     private long gatewayPing = 0;
 
+    private InfoModule infoModule = new InfoModule();
+
     //region Constructors/builder
 
     /**
@@ -84,7 +86,7 @@ public class Bot {
      */
     private CommandManager buildCommandManager() {
         return new CommandManager(this)
-                .addCommand(new PingCommand("ping", new InfoModule(), this));
+                .addCommand(new PingCommand("ping", infoModule, this));
     }
 
     //endregion

@@ -1,12 +1,14 @@
 package dev.jmoore.mandatum;
 
 import dev.jmoore.mandatum.handlers.DisconnectHandler;
+import dev.jmoore.mandatum.handlers.ExceptionHandler;
 import dev.jmoore.mandatum.handlers.MessageReceivedHandler;
 import dev.jmoore.mandatum.handlers.ReadyHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.DisconnectEvent;
+import net.dv8tion.jda.api.events.ExceptionEvent;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
@@ -84,6 +86,7 @@ public class Bot {
         return new EventListener()
                 .register(ReadyEvent.class, new ReadyHandler())
                 .register(GuildMessageReceivedEvent.class, new MessageReceivedHandler())
-                .register(DisconnectEvent.class, new DisconnectHandler());
+                .register(DisconnectEvent.class, new DisconnectHandler())
+                .register(ExceptionEvent.class, new ExceptionHandler());
     }
 }

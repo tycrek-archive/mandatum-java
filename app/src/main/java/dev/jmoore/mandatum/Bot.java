@@ -1,5 +1,6 @@
 package dev.jmoore.mandatum;
 
+import dev.jmoore.mandatum.command.CommandManager;
 import dev.jmoore.mandatum.handlers.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -13,6 +14,7 @@ public class Bot {
     private final String token;
     private final Snowflake owner;
     private JDA jda;
+    private CommandManager commandManager;
     private long gatewayPing = 0;
 
     //region Constructors/builder
@@ -53,6 +55,8 @@ public class Bot {
                 .addEventListeners(this.buildEventListener())
                 .build().awaitReady();
 
+        this.commandManager = buildCommandManager();
+
         return this;
     }
 
@@ -74,6 +78,10 @@ public class Bot {
                 .register(new MessageReceivedHandler(this), GuildMessageReceivedEvent.class);
     }
 
+    private CommandManager buildCommandManager() {
+        return new CommandManager(this);
+    }
+
     //endregion
 
     //region General functions
@@ -87,7 +95,7 @@ public class Bot {
 
     //endregion
 
-    //region Getters (for things that have no Setter
+    //region Getters (for things that have no Setter)
 
     /**
      * @return This Bot's {@link JDA}

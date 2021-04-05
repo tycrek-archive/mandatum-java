@@ -1,6 +1,8 @@
 package dev.jmoore.mandatum;
 
 import dev.jmoore.mandatum.command.CommandManager;
+import dev.jmoore.mandatum.command.Module.InfoModule;
+import dev.jmoore.mandatum.command.modules.info.PingCommand;
 import dev.jmoore.mandatum.handlers.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -78,7 +80,8 @@ public class Bot {
     }
 
     private CommandManager buildCommandManager() {
-        return new CommandManager(this);
+        return new CommandManager(this)
+                .addCommand(new PingCommand("ping", new InfoModule(), this));
     }
 
     //endregion

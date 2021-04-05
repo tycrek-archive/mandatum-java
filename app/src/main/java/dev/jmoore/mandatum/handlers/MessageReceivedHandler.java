@@ -12,5 +12,6 @@ public class MessageReceivedHandler extends Handler<GuildMessageReceivedEvent> {
     @Override
     protected void onHandle(GuildMessageReceivedEvent event) {
         Logger.debug("Message received from [%s] in [%s]: %s%n", event.getAuthor().getName(), event.getGuild().getName(), event.getMessage());
+        if (event.getMessage().getContentRaw().startsWith("%ping")) this.getBot().getCommandManager().getCommand("ping").execute(event.getMessage());
     }
 }

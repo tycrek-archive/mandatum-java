@@ -1,17 +1,21 @@
 package dev.jmoore.mandatum.utils;
 
+import java.io.PrintStream;
+
 public class Logger {
-    private static final String DEBUG = "[DEBUG] ";
-    private static final String INFO = "[INFO] ";
-    private static final String WARN = "[WARN] ";
-    private static final String ERROR = "[ERROR] ";
+    private enum LogType {
+        DEBUG,
+        INFO,
+        WARN,
+        ERROR
+    }
 
     public static void debug(String message) {
         Logger.debug(message, new Object[0]);
     }
 
     public static void debug(String message, Object... args) {
-        log(DEBUG, message, args);
+        log(LogType.DEBUG, message, args);
     }
 
     public static void info(String message) {
@@ -19,7 +23,7 @@ public class Logger {
     }
 
     public static void info(String message, Object... args) {
-        log(INFO, message, args);
+        log(LogType.INFO, message, args);
     }
 
     public static void warn(String message) {
@@ -27,7 +31,7 @@ public class Logger {
     }
 
     public static void warn(String message, Object... args) {
-        log(WARN, message, args);
+        log(LogType.WARN, message, args);
     }
 
     public static void error(String message) {
@@ -35,10 +39,12 @@ public class Logger {
     }
 
     public static void error(String message, Object... args) {
-        log(ERROR, message, args);
+        log(LogType.ERROR, message, args);
     }
 
-    private static void log(String logType, String message, Object... args) {
-        System.out.println(String.format(logType + message.trim(), args).trim());
+    private static void log(LogType logType, String message, Object... args) {
+        message = String.format("[" + logType + "] " + message.trim(), args).trim();
+        PrintStream stream = (logType == LogType.WARN || logType == LogType.ERROR ? System.err : System.out);
+        stream.println(message);
     }
 }

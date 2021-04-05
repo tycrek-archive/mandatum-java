@@ -62,7 +62,7 @@ public class Bot {
     }
 
     /**
-     * @return A new EventListener
+     * @return A new {@link EventListener}
      */
     private EventListener buildEventListener() {
         return new EventListener()
@@ -79,6 +79,9 @@ public class Bot {
                 .register(new MessageReceivedHandler(this), GuildMessageReceivedEvent.class);
     }
 
+    /**
+     * @return A new {@link CommandManager}
+     */
     private CommandManager buildCommandManager() {
         return new CommandManager(this)
                 .addCommand(new PingCommand("ping", new InfoModule(), this));
@@ -107,12 +110,15 @@ public class Bot {
     }
 
     /**
-     * @return The bot owner's {@link Snowflake}
+     * @return This Bot's owner's {@link Snowflake}
      */
     public Snowflake getOwner() {
         return this.owner;
     }
 
+    /**
+     * @return This Bot's {@link CommandManager}
+     */
     public CommandManager getCommandManager() {
         return this.commandManager;
     }
@@ -121,10 +127,17 @@ public class Bot {
 
     //region Getters/Setters
 
+    /**
+     * @return Latest ping (in milliseconds) between this bot and the Discord API gateway
+     */
     public long getGatewayPing() {
         return this.gatewayPing;
     }
 
+    /**
+     * Sets the ping between this bot and the Discord API gateway
+     * @param gatewayPing The ping between this bot and the Discord API gateway
+     */
     public void setGatewayPing(long gatewayPing) {
         this.gatewayPing = gatewayPing;
     }

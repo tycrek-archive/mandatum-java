@@ -84,9 +84,10 @@ public class Bot {
      */
     private EventListener buildEventListener() {
         return new EventListener()
-                .register(ReadyEvent.class, new ReadyHandler())
-                .register(GuildMessageReceivedEvent.class, new MessageReceivedHandler())
                 .register(DisconnectEvent.class, new DisconnectHandler())
-                .register(ExceptionEvent.class, new ExceptionHandler());
+                .register(ExceptionEvent.class, new ExceptionHandler())
+                .register(ReadyEvent.class, new ReadyHandler())
+
+                .register(GuildMessageReceivedEvent.class, new MessageReceivedHandler());
     }
 }

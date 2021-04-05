@@ -30,7 +30,7 @@ public class EventListener implements net.dv8tion.jda.api.hooks.EventListener {
      * @param eventHandler The {@link Handler} for the {@link Event}
      * @return This {@link EventListener} for chaining
      */
-    public EventListener register(Class<? extends Event> eventClass, Handler<? extends Event> eventHandler) {
+    public EventListener register(Handler<? extends Event> eventHandler, Class<? extends Event> eventClass) {
         this.handlerMap.put(eventClass, eventHandler);
         return this;
     }

@@ -66,11 +66,11 @@ public class Bot {
      */
     private EventListener buildEventListener() {
         return new EventListener()
-                .register(DisconnectEvent.class, new DisconnectHandler(this))
-                .register(ExceptionEvent.class, new ExceptionHandler(this))
-                .register(ReadyEvent.class, new ReadyHandler(this))
+                .register(new DisconnectHandler(this), DisconnectEvent.class)
+                .register(new ExceptionHandler(this), ExceptionEvent.class)
+                .register(new ReadyHandler(this), ReadyEvent.class)
 
-                .register(GuildMessageReceivedEvent.class, new MessageReceivedHandler(this));
+                .register(new MessageReceivedHandler(this), GuildMessageReceivedEvent.class);
     }
 
     //endregion

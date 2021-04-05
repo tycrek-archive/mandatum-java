@@ -18,6 +18,9 @@ public class Bot {
     private final String token;
     private final Snowflake owner;
     private JDA jda;
+    private long gatewayPing = 0;
+
+    //region Constructors/builder
 
     /**
      * Creates a new {@link Bot}
@@ -59,6 +62,33 @@ public class Bot {
     }
 
     /**
+     * @return A new EventListener
+     */
+    private EventListener buildEventListener() {
+        return new EventListener()
+                .register(DisconnectEvent.class, new DisconnectHandler(this))
+                .register(ExceptionEvent.class, new ExceptionHandler(this))
+                .register(ReadyEvent.class, new ReadyHandler(this))
+
+                .register(GuildMessageReceivedEvent.class, new MessageReceivedHandler(this));
+    }
+
+    //endregion
+
+    //region General functions
+
+    /**
+     * Sends a direct message to the Bot's owner
+     */
+    public void sendToOwner() {
+
+    }
+
+    //endregion
+
+    //region Getters (for things that have no Setter
+
+    /**
      * @return This Bot's {@link JDA}
      */
     public JDA getJda() {
@@ -72,22 +102,17 @@ public class Bot {
         return this.owner;
     }
 
-    /**
-     * Sends a direct message to the Bot's owner
-     */
-    public void sendToOwner() {
+    //endregion
 
+    //region Getters/Setters
+
+    public long getGatewayPing() {
+        return this.gatewayPing;
     }
 
-    /**
-     * @return A new EventListener
-     */
-    private EventListener buildEventListener() {
-        return new EventListener()
-                .register(DisconnectEvent.class, new DisconnectHandler())
-                .register(ExceptionEvent.class, new ExceptionHandler())
-                .register(ReadyEvent.class, new ReadyHandler())
-
-                .register(GuildMessageReceivedEvent.class, new MessageReceivedHandler());
+    public void setGatewayPing(long gatewayPing) {
+        this.gatewayPing = gatewayPing;
     }
+
+    //endregion
 }

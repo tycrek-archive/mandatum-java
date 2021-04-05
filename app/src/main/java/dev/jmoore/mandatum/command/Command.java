@@ -1,9 +1,13 @@
 package dev.jmoore.mandatum.command;
 
+import dev.jmoore.mandatum.Bot;
+import net.dv8tion.jda.api.entities.Message;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Command {
+    private final Bot bot;
     private final String name;
     private final Module module;
 
@@ -12,12 +16,19 @@ public abstract class Command {
     private boolean allowPrivate = true;
     private boolean allowGuild = true;
 
-    protected Command(String name, Module module) {
+    public Command(String name, Module module, Bot bot) {
         this.name = name;
         this.module = module;
+        this.bot = bot;
     }
 
+    public abstract void execute(Message event);
+
     //region Getters with no Setters
+
+    public Bot getBot() {
+        return this.bot;
+    }
 
     public String getName() {
         return this.name;

@@ -46,14 +46,13 @@ public class Bot {
      *
      * @return The {@link Bot} for chaining
      * @throws LoginException Thrown if authentication with the Discord API fails
-     * @throws InterruptedException Thrown if <code>.build().awaitRead()</code> fails to block the thread
      */
-    public Bot build() throws LoginException, InterruptedException {
+    public Bot build() throws LoginException {
         this.jda = JDABuilder
                 .createLight(this.token)
                 .setActivity(Activity.listening("aaaaaaaaaaaa"))
                 .addEventListeners(this.buildEventListener())
-                .build().awaitReady();
+                .build();
 
         this.commandManager = buildCommandManager();
 
@@ -109,6 +108,10 @@ public class Bot {
      */
     public Snowflake getOwner() {
         return this.owner;
+    }
+
+    public CommandManager getCommandManager() {
+        return this.commandManager;
     }
 
     //endregion

@@ -2,16 +2,13 @@ package dev.jmoore.mandatum.command;
 
 import dev.jmoore.mandatum.Bot;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CommandManager {
     private final Bot bot;
-    private Map<String, Command> commands;
-    private Map<String, String> aliases;
+    private final Map<String, Command> commands = new LinkedHashMap<>();
+    private final Map<String, String> aliases = new LinkedHashMap<>();
 
     public CommandManager(Bot bot) {
         this.bot = bot;

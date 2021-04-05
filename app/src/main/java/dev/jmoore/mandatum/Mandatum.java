@@ -13,6 +13,6 @@ public class Mandatum {
         DOTENV = Dotenv.load();
 
         // Start the bot
-        bot = new Bot(DOTENV.get("TOKEN"));
+        bot = new Bot(DOTENV.get("TOKEN"), new Snowflake("324679696182673408")).build();
     }
 }
